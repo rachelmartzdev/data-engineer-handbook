@@ -2,7 +2,7 @@
 
 **What was the most difficult part?**
 
-Learning to navigate a new application's workflow - particularly going in and out of Lakebase. 
+Getting it deployed then getting it working after deployed. 
 
 
 **How is Lakebase different from storing this data in a traditional analytics table?**
