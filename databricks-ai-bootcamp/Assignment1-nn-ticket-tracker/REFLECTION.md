@@ -2,7 +2,7 @@
 
 **What was the most difficult part?**
 
-Getting it deployed then fixing new bugs after deployed. 
+So many problems getting it deployed - secrets + ownership vs. permission issues + learning curve of everyting.
 
 
 **How is Lakebase different from storing this data in a traditional analytics table?**
