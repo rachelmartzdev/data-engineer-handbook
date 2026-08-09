@@ -1,18 +1,9 @@
 """
 Weather MCP server (FastMCP, streamable-HTTP transport).
 
-Exposes weather tools backed by Open-Meteo (free, no API key). Mirrors the
-role of mcp_server/alpaca_mcp_server.py in the day-3 reference repo --
-tool functions here stay thin (docstring + a couple of calls); all HTTP
+Exposes weather tools backed by Open-Meteo (free, no API key). Tool
+functions here stay thin (docstring + a couple of calls); all HTTP
 requests and response parsing live in weather_broker.py.
-
-IMPORTANT -- verify before deploying: the exact `mcp.run(...)` host/port
-arguments and app.yaml `command` below are built from the standard FastMCP
-streamable-HTTP pattern, since I (Claude) haven't read the actual
-databricks-lakebase-app-day-3/mcp_server/alpaca_mcp_server.py file
-directly. Diff this against that real file once you have it open and
-adjust the run() call / app.yaml to match exactly if anything differs
-(e.g. a different port env var name, a different transport helper).
 
 Run locally:
     python mcp_server/weather_mcp_server.py
@@ -28,7 +19,12 @@ import weather_broker
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("weather_mcp_server")
 
-mcp = FastMCP("weather-server")
+# In this SDK version, FastMCP.run() does not accept host/port kwargs --
+# they must be set on the FastMCP instance itself at construction time.
+_MCP_HOST = os.getenv("MCP_HOST", "0.0.0.0")
+_MCP_PORT = int(os.getenv("MCP_PORT", 8000))
+
+mcp = FastMCP("weather-server", host=_MCP_HOST, port=_MCP_PORT)
 
 # Precipitation-probability threshold used by predict_umbrella_needed.
 # Documented here (not buried in the tool body) so it's easy to find/tune,
@@ -153,10 +149,6 @@ def predict_umbrella_needed(location: str, date: str) -> dict:
 
 
 if __name__ == "__main__":
-    host = os.getenv("MCP_HOST", "0.0.0.0")
-    port = int(os.getenv("MCP_PORT", 8000))
-    # Streamable-HTTP transport, matching the pattern referenced in the
-    # assignment brief -- verify these run() kwargs against
-    # alpaca_mcp_server.py's actual call before deploying (see note at
-    # top of file).
-    mcp.run(transport="streamable-http", host=host, port=port)
+    # host/port are already set on the FastMCP instance above (this SDK
+    # version's run() does not accept them directly).
+    mcp.run(transport="streamable-http")
