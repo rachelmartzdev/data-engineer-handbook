@@ -23,17 +23,21 @@ CREATE TABLE IF NOT EXISTS provider_zip_counts (
     synced_at       TIMESTAMP DEFAULT now()
 );
 
--- Added by Phase 2 (embeddings) and Phase 4 (confirmation agent) later —
--- not needed yet, just previewing what's coming:
---
--- CREATE TABLE provider_embeddings (
---     id             SERIAL PRIMARY KEY,
---     npi            TEXT REFERENCES providers(npi),
---     chunk_text     TEXT,
---     embedding      vector(384),
---     model_name     TEXT,
---     created_at     TIMESTAMP DEFAULT now()
--- );
+-- Phase 2 — embeddings. Run this against the same postgres-vector database;
+-- CREATE EXTENSION is wrapped in a check since it may already exist from
+-- Assignment 2.
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE IF NOT EXISTS provider_embeddings (
+    npi            TEXT PRIMARY KEY REFERENCES providers(npi),
+    chunk_text     TEXT,
+    embedding      vector(384),
+    model_name     TEXT,
+    created_at     TIMESTAMP DEFAULT now()
+);
+
+-- Added by Phase 4 (confirmation agent) later — not needed yet, just
+-- previewing what's coming:
 --
 -- CREATE TABLE provider_confirmations (
 --     id              SERIAL PRIMARY KEY,
