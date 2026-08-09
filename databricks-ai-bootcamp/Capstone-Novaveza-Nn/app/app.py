@@ -1,5 +1,5 @@
 """
-Novaveza (Nv) — Chicago Behavioral Health Provider Access
+Novanega™ (Nv) — Chicago Behavioral Health Provider Access
 Capstone Databricks App: Flask frontend reading from the Gold/embedding
 tables populated by the Phase 1 Spark pipeline and Phase 2 embeddings.
 
@@ -43,7 +43,7 @@ PAGE_TEMPLATE = """
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Novaveza — Chicago Behavioral Health Access</title>
+  <title>Novanega™ — Chicago Behavioral Health Access</title>
   <style>
     body { font-family: -apple-system, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #222; }
     h1 { font-size: 1.5rem; }
@@ -59,7 +59,7 @@ PAGE_TEMPLATE = """
   </style>
 </head>
 <body>
-  <h1>Novaveza — Chicago Behavioral Health Provider Access</h1>
+  <h1>Novanega™ — Chicago Behavioral Health Provider Access</h1>
   <p>Provider data sourced from the NPPES registry, filtered to behavioral health
   taxonomies in the Chicago area (ZIP prefix 606).</p>
 
@@ -96,7 +96,7 @@ PAGE_TEMPLATE = """
     {% endif %}
   {% endif %}
 
-  <p class="note">Novaveza — the consumer-facing portal of Novanega, under EthicaWorks.</p>
+  <p class="note">Novaveza — the consumer-facing portal of Novanega™, under EthicaWorks.</p>
 </body>
 </html>
 """
